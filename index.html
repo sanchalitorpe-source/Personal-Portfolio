@@ -1,0 +1,372 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sanchali Torpe — Aspiring Full Stack Web Developer</title>
+  <meta name="description" content="Personal portfolio of a web developer showcasing projects, skills and contact details." />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <style>
+    /* ==========================
+       Warm dark portfolio styles
+       Single-file: HTML + CSS + JS
+       ========================== */
+
+    :root{
+      --bg: #0f1113;
+      --card: #151617;
+      --muted: #b9b9b9;
+      --accent: #ffb86b; /* warm accent */
+      --accent-2: #ff7a59;
+      --glass: rgba(255,255,255,0.03);
+      --radius: 14px;
+      --max-width: 1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;
+      --sans: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      --transition: 250ms cubic-bezier(.2,.9,.3,1);
+    }
+
+    /* Light mode fallback (users can override) */
+    @media (prefers-color-scheme: light){
+      :root{ --bg: #f7f6f3; --card:#ffffff; --muted:#454545; }
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#0b0c0d 0%, var(--bg) 100%);
+      color:#e6e6e6;
+      font-family:var(--sans);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+    }
+
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;margin-bottom:28px;
+    }
+
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      box-shadow:0 6px 20px rgba(255,120,80,0.12);display:grid;place-items:center;font-weight:700;color:#111;
+      font-family:var(--mono);font-size:18px
+    }
+    .title{font-size:16px;font-weight:600}
+    .subtitle{font-size:12px;color:var(--muted)}
+
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-size:14px;padding:8px;border-radius:10px;transition:var(--transition)}
+    nav a:hover{color:var(--accent);background:rgba(255,184,107,0.04)}
+
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer}
+    .dark-toggle{display:flex;gap:8px;align-items:center}
+
+    main{display:grid;grid-template-columns:1fr;gap:28px}
+
+    /* HERO */
+    .hero{
+      display:flex;flex-direction:column;gap:18px;padding:22px;border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);backdrop-filter: blur(6px);
+    }
+
+    .hero .row{display:flex;gap:18px;align-items:center;justify-content:space-between}
+    .intro{max-width:720px}
+    .intro h1{margin:0;font-size:32px;letter-spacing:-0.02em}
+    .intro p{margin:8px 0 0;color:var(--muted)}
+    .cta{display:flex;gap:12px;margin-top:14px}
+    .primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#111;padding:10px 16px;border-radius:12px;border:none;cursor:pointer;font-weight:700}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 16px;border-radius:12px;color:var(--muted);cursor:pointer}
+
+    /* PROJECTS */
+    .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);transition:transform var(--transition),box-shadow var(--transition)}
+    .card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+    .thumb{height:140px;border-radius:10px;background:linear-gradient(135deg,#1a1b1c,#0f1113);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
+    .proj-title{margin:10px 0 6px;font-weight:700}
+    .proj-desc{font-size:13px;color:var(--muted)}
+    .proj-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    /* SKILLS */
+    .skills{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .skill{background:var(--glass);padding:12px;border-radius:10px}
+    .skill h4{margin:0 0 8px}
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden}
+    .bar > span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 800ms cubic-bezier(.2,.9,.3,1)}
+
+    /* CONTACT */
+    .contact{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    .contact input,.contact textarea{width:100%;padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:inherit}
+    .contact .actions{display:flex;gap:8px;justify-content:flex-end}
+
+    footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .projects{grid-template-columns:repeat(2,1fr)}
+      .skills{grid-template-columns:1fr}
+      .hero .row{flex-direction:column;align-items:flex-start}
+    }
+    @media(max-width:560px){
+      body{padding:18px}
+      .projects{grid-template-columns:1fr}
+      header{flex-direction:column;align-items:flex-start}
+      .logo{width:48px;height:48px}
+      .intro h1{font-size:24px}
+    }
+
+    /* Utility */
+    .muted{color:var(--muted)}
+    a.external{color:var(--accent);text-decoration:none}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+    
+        <div>
+          <div class="title">Sanchali Torpe</div>
+          <div class="subtitle">Aspiring Full Stack Web Developer</div>
+        </div>
+      </div>
+
+      <nav aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+        <button id="themeBtn" class="btn" aria-pressed="false" title="Toggle dark/light">🌙</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home" aria-labelledby="home-heading">
+        <div class="row">
+          <div class="intro">
+            <h1 id="home-heading">Hi — I’m Sanchali Torpe.</h1>
+            <p class="muted">A first-year Computer Science student passionate about web development and problem solving. I’m learning to build interactive, responsive websites and exploring full-stack development.”</p>
+            <div class="cta">
+              <a class="primary" href="#projects">See projects</a>
+              <a class="secondary" href="#contact">Hire me</a>
+            </div>
+          </div>
+
+          <div class="meta" aria-hidden="true">
+            <div style="text-align:right">
+              <div style="font-weight:700">Kopargaon, India</div>
+              <div class="muted" style="font-size:13px;margin-top:6px">Open to remote &amp; hybrid</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="card" aria-labelledby="about-heading">
+        <h2 id="about-heading">About me</h2>
+        <p class="muted">Currently pursuing B.Tech in Computer Science and Engineering at Sanjivani College of engineering, Kopargaon.Interested in Web Development, Data Structures, and Open Source.Eager to apply my skills on real-world projects and internships.</p>
+        <p style="margin-top:12px">Quick highlights:</p>
+        <ul class="muted">
+          <li>Built and deployed a personal portfolio website using HTML, CSS, and JavaScript</li>
+          <li>Exploring Git & GitHub for version control and open-source collaboration</li>
+          <li>Created small web app like a Live Code editor as part of learning projects</li>
+          <li>Actively practicing Java programming and problem solving to strengthen fundamentals.</li>
+          <li>Enthusiastic about learning full-stack web development and contributing to projects.</li>
+        </ul>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Selected projects</h2>
+        <div class="projects" role="list">
+
+          <!-- Project 1 -->
+          <article class="card" role="listitem">
+            <div class="thumb">Project A</div>
+            <div class="proj-title">Project A — Live Code Editor</div>
+            <div class="proj-desc muted">A browser-based editor that lets users write HTML, CSS, and JavaScript and see the output instantly in a preview window.</div>
+            <div class="proj-tags">
+              <span class="tag">HTMl</span>
+              <span class="tag">CSS</span>
+              <span class="tag">Javascript</span>
+            </div>
+        
+          </article>
+
+          <!-- Project 2 -->
+          <article class="card" role="listitem">
+            <div class="thumb">Project B</div>
+            <div class="proj-title">Project B — Portfolio</div>
+            <div class="proj-desc muted">A responsive personal portfolio built with HTML, CSS, and JavaScript. Showcases my skills, projects, and contact info.</div>
+            <div class="proj-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">Javascript</span>
+        
+            </div>
+          </article>
+
+    
+
+        </div>
+      </section>
+
+      <section id="skills" class="card" aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Skills</h2>
+        <div class="skills">
+          <div class="skill">
+            <h4>Frontend: HTML, CSS, JavaScript</h4>
+            <div class="bar" aria-hidden="true"><span style="width:92%"></span></div>
+            <div class="muted" style="margin-top:8px">HTML • CSS • JavaScript</div>
+          </div>
+
+          <div class="skill">
+            <h4>Programming Languages</h4>
+            <div class="bar" aria-hidden="true"><span style="width:78%"></span></div>
+            <div class="muted" style="margin-top:8px">C • Java </div>
+          </div>
+
+          <div class="skill">
+            <h4>Tools</h4>
+            <div class="bar" aria-hidden="true"><span style="width:70%"></span></div>
+            <div class="muted" style="margin-top:8px">Git • Github • VS Code</div>
+          </div>
+
+          <div class="skill">
+            <h4>Soft Skills</h4>
+            <div class="bar" aria-hidden="true"><span style="width:84%"></span></div>
+            <div class="muted" style="margin-top:8px">Problem-solving • Curiosity • Teamwork</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact</h2>
+        <p class="muted">Just provide: </p>
+        <form id="contactForm">
+          <input id="name" type="text" placeholder="Your name*" required />
+          <input id="email" type="email" placeholder="Your email*" required />
+          <textarea id="message" rows="2" placeholder="LinkedIn profile"></textarea
+          <textarea id="message" rows="2" placeholder="Github profile"></textarea>
+          <div class="actions">
+            <button type="submit" class="primary">Send message</button>
+
+          </div>
+        </form>
+      </section>
+
+      <footer>
+        <div>© <!-- dynamically updated --> <span id="year"></span> Sanchali Torpe • <a class="external" href="sanchalitorpe@gmail.com">sanchalitorpe@gmail.com</a></div>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // Small JS to enable theme toggling, basic form, and tiny interactions.
+    (function(){
+      const themeBtn = document.getElementById('themeBtn');
+      const yearEl = document.getElementById('year');
+      yearEl.textContent = new Date().getFullYear();
+
+      // Apply saved theme or system preference
+      const saved = localStorage.getItem('theme');
+      if(saved === 'light') document.documentElement.style.setProperty('--bg','#f7f6f3');
+      if(saved === 'light') themeBtn.textContent = '☀️';
+
+      themeBtn.addEventListener('click', ()=>{
+        const current = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+        const isDark = current === '#0f1113' || current === '#0b0c0d';
+        if(isDark){
+          // switch to light
+          document.documentElement.style.setProperty('--bg','#f7f6f3');
+          document.documentElement.style.setProperty('--card','#ffffff');
+          document.documentElement.style.setProperty('--muted','#454545');
+          themeBtn.textContent = '☀️';
+          themeBtn.setAttribute('aria-pressed','true');
+          localStorage.setItem('theme','light');
+        } else {
+          // switch to dark
+          document.documentElement.style.setProperty('--bg','#0f1113');
+          document.documentElement.style.setProperty('--card','#151617');
+          document.documentElement.style.setProperty('--muted','#b9b9b9');
+          themeBtn.textContent = '🌙';
+          themeBtn.setAttribute('aria-pressed','false');
+          localStorage.setItem('theme','dark');
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', e=>{
+          const href = a.getAttribute('href');
+          if(href === '#') return;
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+
+      // Simple contact form handler — opens mail client as fallback
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        if(!name||!email||!message){ alert('Please fill all fields.'); return; }
+        // Open mail client with prefilled content
+        const subject = encodeURIComponent('Portfolio contact from ' + name);
+        const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+        window.location.href = `mailto:you@example.com?subject=${subject}&body=${body}`;
+      });
+
+      // Tiny helper functions used by project buttons (placeholder actions)
+      window.openDemo = function(e){ e.preventDefault(); alert('Replace with your live demo URL.'); }
+      window.openCode = function(e){ e.preventDefault(); alert('Replace with your code repo URL.'); }
+
+      // Resume download (example: triggers a small text resume — replace with your PDF path)
+      document.getElementById('downloadResume').addEventListener('click', function(e){
+        e.preventDefault();
+        const resumeText = `Your Name\nWeb Developer\n\nExperience:\n- ...`;
+        const blob = new Blob([resumeText], {type:'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'YourName_Resume.txt';
+        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      });
+
+      // Animate skill bars after viewport enter
+      const bars = document.querySelectorAll('.bar > span');
+      const onIntersect = (entries, obs) => {
+        entries.forEach(en=>{ if(en.isIntersecting){ en.target.style.width = en.target.style.width || en.target.getAttribute('style').replace(/.*width:\s*/,''); obs.unobserve(en.target); } });
+      };
+      try{
+        const io = new IntersectionObserver(onIntersect,{threshold:0.2});
+        bars.forEach(b=>{ // capture inline width, reset then observe
+          const s = b.getAttribute('style');
+          const match = /width:\s*([0-9]+%)/.exec(s);
+          const w = match? match[1] : '70%';
+          b.style.width = '0%';
+          b.setAttribute('data-target', w);
+          // restore target width on intersection
+          b.setAttribute('style','width:'+w);
+          io.observe(b);
+        });
+      }catch(err){ /* IntersectionObserver fallback: set widths */ bars.forEach(b=>b.style.width = b.style.width || b.getAttribute('style').replace(/.*width:\s*/,'')); }
+
+    })();
+  </script>
+</body>
+</html>
+
